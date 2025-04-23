@@ -1,0 +1,14 @@
+../Core/Src/gameDriver.c:12:6:connect4Init	16	static
+../Core/Src/gameDriver.c:37:6:displayFromGameState	8	static
+../Core/Src/gameDriver.c:58:6:connect4DisplayBoard	40	static
+../Core/Src/gameDriver.c:123:6:connect4DisplayModeSelect	16	static
+../Core/Src/gameDriver.c:154:6:connect4DisplayWinMessage	24	static
+../Core/Src/gameDriver.c:193:6:connect4DisplayEndScreen	40	static
+../Core/Src/gameDriver.c:261:6:processGameTouchInput	48	static
+../Core/Src/gameDriver.c:343:6:processGameButtonInput	8	static
+../Core/Src/gameDriver.c:372:6:checkForAndHandleWinner	16	static
+../Core/Src/gameDriver.c:400:6:placePieceInCurrCol	16	static
+../Core/Src/gameDriver.c:416:6:changePlayer	4	static
+../Core/Src/gameDriver.c:432:6:AIPlayerStep	8	static
+../Core/Src/gameDriver.c:451:9:getWinner	40	static
+../Core/Src/gameDriver.c:511:6:incrementStoredTime	4	static

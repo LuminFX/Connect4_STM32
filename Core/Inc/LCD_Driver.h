@@ -46,7 +46,7 @@
 */
 #define  ILI9341_HSYNC            ((uint32_t)9)   /* Horizontal synchronization */
 #define  ILI9341_HBP              ((uint32_t)29)    /* Horizontal back porch      */
-#define  ILI9341_HFP              ((uint32_t)2)    /* Horizontal front porch     */
+#define  ILI9341_HFP              ((uint32_t)2)   /* Horizontal front porch     */
 #define  ILI9341_VSYNC            ((uint32_t)1)   /* Vertical synchronization   */
 #define  ILI9341_VBP              ((uint32_t)3)    /* Vertical back porch        */
 #define  ILI9341_VFP              ((uint32_t)2)    /* Vertical front porch       */
@@ -64,6 +64,8 @@ void LCD_SetFont(FONT_t *fonts);
 
 // Draw Circle Filled
 void LCD_Draw_Circle_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t radius, uint16_t color);
+
+void LCD_Draw_Square_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t width, uint16_t height, uint16_t color);
 
 // Draw Vertical Line
 void LCD_Draw_Vertical_Line(uint16_t x, uint16_t y, uint16_t len, uint16_t color);
@@ -85,9 +87,6 @@ uint8_t ReadRegisterFromTouchModule(uint8_t RegToRead);
 void WriteDataToTouchModule(uint8_t RegToWrite, uint8_t writeData);
 
 #endif // COMPILE_TOUCH_FUNCTIONS
-
-
-/*        APPLICATION SPECIFIC FUNCTION DECLARATION - PUT YOUR NEWLY CREATED FUNCTIONS HERE       */
 
 
 #endif /* INC_LCD_DRIVER_H_ */

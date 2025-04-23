@@ -1,0 +1,9 @@
+../Core/Src/Gyro.c:13:6:gyroInit	64	static
+../Core/Src/Gyro.c:67:6:gyroPower	8	static
+../Core/Src/Gyro.c:73:6:gyroConfigRegisters	8	static
+../Core/Src/Gyro.c:80:6:gyroVerifyHALStatus	8	static
+../Core/Src/Gyro.c:91:6:gyroEnableCommunication	8	static
+../Core/Src/Gyro.c:95:6:gyroDisableCommunication	8	static
+../Core/Src/Gyro.c:99:9:gyroGetData	32	static
+../Core/Src/Gyro.c:120:6:gyroWriteData	24	static
+../Core/Src/Gyro.c:141:9:getGyroConnect4Move	16	static

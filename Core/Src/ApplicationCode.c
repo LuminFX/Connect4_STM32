@@ -9,7 +9,6 @@
 
 /* Static variables */
 
-
 extern void initialise_monitor_handles(void); 
 
 #if COMPILE_TOUCH_FUNCTIONS == 1
@@ -22,6 +21,10 @@ void ApplicationInit(void)
     LTCD__Init();
     LTCD_Layer_Init(0);
     LCD_Clear(0,LCD_COLOR_WHITE);
+    Button_Init();
+    gyroInit();
+
+    initConnect4();
 
     #if COMPILE_TOUCH_FUNCTIONS == 1
 	InitializeLCDTouch();
@@ -31,11 +34,16 @@ void ApplicationInit(void)
 	StaticTouchData.orientation = STMPE811_Orientation_Portrait_2;
 
 	#endif // COMPILE_TOUCH_FUNCTIONS
+
+	displayConnect4();
 }
 
-void LCD_Visual_Demo(void)
-{
-	visualDemo();
+void initConnect4(){
+	connect4Init();
+}
+
+void displayConnect4(){
+	displayFromGameState();
 }
 
 #if COMPILE_TOUCH_FUNCTIONS == 1
@@ -55,5 +63,50 @@ void LCD_Touch_Polling_Demo(void)
 		}
 	}
 }
+
+void LCD_Touch_Polling_Connect4(){
+
+	while (1){
+
+		if (returnTouchStateAndLocation(&StaticTouchData) == STMPE811_State_Pressed) {
+			processGameTouchInput(StaticTouchData);
+		}
+		if (Button_Is_Pressed()){
+			processGameButtonInput();
+		}
+
+		uint8_t gyroMove = getGyroConnect4Move();
+		STMPE811_t movement;
+		switch (gyroMove){
+		case GYRO_SIGNAL_MOVE_RIGHT:
+
+			movement.x = LCD_PIXEL_WIDTH - 1;
+			processGameTouchInput(movement);
+
+			break;
+		case GYRO_SIGNAL_MOVE_LEFT:
+
+			movement.x = 1;
+			processGameTouchInput(movement);
+
+			break;
+		case GYRO_SIGNAL_NO_MOVE:
+			break;
+		}
+
+
+
+	}
+
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim){
+	incrementStoredTime();
+}
+
+void TIM2_IRQHandler(){
+	callTIM2IRQHandler();
+}
+
 #endif // COMPILE_TOUCH_FUNCTIONS
 

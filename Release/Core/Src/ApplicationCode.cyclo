@@ -1,0 +1,5 @@
+../Core/Src/ApplicationCode.c:18:6:ApplicationInit	1
+../Core/Src/ApplicationCode.c:40:6:initConnect4	1
+../Core/Src/ApplicationCode.c:44:6:displayConnect4	1
+../Core/Src/ApplicationCode.c:49:6:LCD_Touch_Polling_Demo	2
+../Core/Src/ApplicationCode.c:66:6:LCD_Touch_Polling_Connect4	3

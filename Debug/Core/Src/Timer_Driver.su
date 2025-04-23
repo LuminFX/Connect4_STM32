@@ -1,0 +1,6 @@
+../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
+../Core/Src/Timer_Driver.c:12:6:MX_TIM2_Init	32	static
+../Core/Src/Timer_Driver.c:55:6:callTIM2IRQHandler	8	static
+../Core/Src/Timer_Driver.c:59:6:startGameTimer	8	static
+../Core/Src/Timer_Driver.c:64:6:stopGameTimer	8	static
+../Core/Src/Timer_Driver.c:68:6:Error_Handler	4	static,ignoring_inline_asm

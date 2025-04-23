@@ -228,6 +228,17 @@ void LCD_Draw_Circle_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t radius, uint16_
     }
 }
 
+void LCD_Draw_Square_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t width, uint16_t height, uint16_t color)
+{
+    for(int16_t y=-height/2; y<=height/2; y++)
+    {
+        for(int16_t x=-width/2; x<=width/2; x++)
+        {
+            	LCD_Draw_Pixel(x+Xpos, y+Ypos, color);
+        }
+    }
+}
+
 void LCD_Draw_Vertical_Line(uint16_t x, uint16_t y, uint16_t len, uint16_t color)
 {
   for (uint16_t i = 0; i < len; i++)
@@ -379,3 +390,6 @@ void WriteDataToTouchModule(uint8_t RegToWrite, uint8_t writeData)
 }
 
 #endif // COMPILE_TOUCH_FUNCTIONS
+
+
+
