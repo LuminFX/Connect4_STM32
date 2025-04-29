@@ -18,11 +18,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ApplicationCode.h"
 #include "Timer_Driver.h"
+#include "ErrorHandling.h"
+#include "RNG_Driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,8 +48,6 @@ I2C_HandleTypeDef hi2c3;
 
 LTDC_HandleTypeDef hltdc;
 
-RNG_HandleTypeDef hrng;
-
 SPI_HandleTypeDef hspi5;
 
 /* USER CODE BEGIN PV */
@@ -56,7 +57,7 @@ SPI_HandleTypeDef hspi5;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_LTDC_Init(void);
-static void MX_RNG_Init(void);
+extern void initialise_monitor_handles(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -87,11 +88,12 @@ int main(void)
   /* USER CODE END Init */
 
   /* Configure the system clock */
+  initialise_monitor_handles();
   SystemClock_Config();
 
   MX_LTDC_Init();
   MX_TIM2_Init();
-  // MX_RNG_Init();
+  MX_RNG_Init();
 
   ApplicationInit(); // Initializes the LCD functionality
 
@@ -236,32 +238,6 @@ static void MX_LTDC_Init(void)
   /* USER CODE BEGIN LTDC_Init 2 */
 
   /* USER CODE END LTDC_Init 2 */
-
-}
-
-/**
-  * @brief RNG Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_RNG_Init(void)
-{
-
-  /* USER CODE BEGIN RNG_Init 0 */
-
-  /* USER CODE END RNG_Init 0 */
-
-  /* USER CODE BEGIN RNG_Init 1 */
-
-  /* USER CODE END RNG_Init 1 */
-  hrng.Instance = RNG;
-  if (HAL_RNG_Init(&hrng) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN RNG_Init 2 */
-
-  /* USER CODE END RNG_Init 2 */
 
 }
 

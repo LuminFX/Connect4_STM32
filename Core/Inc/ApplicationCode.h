@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 #define USE_GYRO_FLAG 1
+#define RUN_TESTS 0
 
 #ifndef INC_APPLICATIONCODE_H_
 #define INC_APPLICATIONCODE_H_
@@ -23,6 +24,7 @@ void ApplicationInit(void);
 void displayConnect4();
 void initConnect4();
 void LCD_Touch_Polling_Connect4();
+void runTests();
 
 void initGameTimer();
 

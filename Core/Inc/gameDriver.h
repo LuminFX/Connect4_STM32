@@ -15,6 +15,8 @@
 #include "LCD_Driver.h"
 #include "Timer_Driver.h"
 #include <math.h>
+#include "RNG_Driver.h"
+#include "assert.h"
 
 #define DEFAULT_COLUMNS 7
 #define DEFAULT_ROWS 6
@@ -24,6 +26,7 @@
 #define EMPTY_SPACE 0
 #define PLAYER_ONE 1
 #define PLAYER_TWO 2
+#define TIE 3
 
 #define SINGLE_PLAYER_MODE 1
 #define TWO_PLAYER_MODE 2
@@ -48,11 +51,11 @@ typedef struct {
 	uint8_t selectedCol;
 	uint8_t winner;
 	uint8_t secondsPlayed;
-	uint8_t minutesPlayed;
 
 } GameInfo;
 
 void connect4Init();
+void connect4InitFromGameInfo(GameInfo game);
 void displayFromGameState();
 void connect4DisplayBoard();
 void connect4DisplayModeSelect();
@@ -66,5 +69,7 @@ bool checkForAndHandleWinner();
 void connect4DisplayWinMessage();
 void connect4DisplayEndScreen();
 void incrementStoredTime();
+bool gameHasTie();
+GameInfo getGameInfo();
 
 #endif /* INC_GAMEDRIVER_H_ */

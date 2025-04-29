@@ -1,1 +1,2 @@
 ../Core/Src/ErrorHandling.c:10:6:APPLICATION_ASSERT	2
+../Core/Src/ErrorHandling.c:16:6:Error_Handler	1

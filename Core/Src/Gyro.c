@@ -145,17 +145,17 @@ uint8_t getGyroConnect4Move(){
 //	uint8_t stat = gyroGetData(STATUS_REG);
 
 	HAL_Delay(5);
-	if (gyroGetData(STATUS_REG) & 0x02){
+	if (gyroGetData(STATUS_REG) & Y_STAT_REG_POS){
 
 		uint8_t hi = gyroGetData(OUT_Y_H);
 		uint8_t lo = gyroGetData(OUT_Y_L);
 		int16_t y_rate = (int16_t)((hi << 8) | lo);
-		float dps = y_rate * 0.00875f;
+		float deg_per_sec = y_rate * DEG_PER_SEC_CONVERSION;
 
-		if (dps > GYRO_MOVEMENT_THRESHOLD){
+		if (deg_per_sec > GYRO_MOVEMENT_THRESHOLD){
 			return GYRO_SIGNAL_MOVE_RIGHT;
 		}
-		if (dps < -GYRO_MOVEMENT_THRESHOLD){
+		if (deg_per_sec < -GYRO_MOVEMENT_THRESHOLD){
 			return GYRO_SIGNAL_MOVE_LEFT;
 		}
 	}

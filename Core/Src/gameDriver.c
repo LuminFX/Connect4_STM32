@@ -9,6 +9,10 @@
 
 static GameInfo connect4Game;
 
+GameInfo getGameInfo(){
+	return connect4Game;
+}
+
 void connect4Init(){
 
 	for (int i = 0; i < DEFAULT_ROWS; i++){
@@ -29,12 +33,20 @@ void connect4Init(){
 	connect4Game.selectedCol = DEFAULT_COL_SELECTION;
 	connect4Game.winner = EMPTY_SPACE;
 	connect4Game.secondsPlayed = 0;
-	connect4Game.minutesPlayed = 0;
+
+
+}
+
+void connect4InitFromGameInfo(GameInfo game){
+
+	connect4Game = game;
 
 
 }
 
 void displayFromGameState(){
+
+	assert((connect4Game.gameState == GAME_STATE_MODE_SEL) | (connect4Game.gameState == GAME_STATE_TURN_LOOP) | (connect4Game.gameState == GAME_STATE_END));
 
 	switch (connect4Game.gameState) {
 
@@ -47,9 +59,6 @@ void displayFromGameState(){
 		case (GAME_STATE_END):
 				connect4DisplayEndScreen();
 				break;
-		default:
-			LCD_Clear(0, LCD_COLOR_WHITE);
-			break;
 
 	}
 
@@ -164,6 +173,9 @@ void connect4DisplayWinMessage(){
 			winnerChar = '2';
 			winnerColor = connect4Game.playerTwoColor;
 			break;
+		case (TIE):
+			winnerColor = LCD_COLOR_WHITE;
+			break;
 	}
 
 	// print background box
@@ -174,6 +186,14 @@ void connect4DisplayWinMessage(){
 
 	uint8_t player1BaseX = 20;
 	uint8_t player1BaseY = 55;
+
+	if (connect4Game.winner == TIE){
+		LCD_DisplayChar(player1BaseX + 40,player1BaseY,'T');
+		LCD_DisplayChar(player1BaseX + 50,player1BaseY,'i');
+		LCD_DisplayChar(player1BaseX + 60,player1BaseY,'e');
+		LCD_DisplayChar(player1BaseX + 70,player1BaseY,'!');
+		return;
+	}
 
 	LCD_DisplayChar(player1BaseX,player1BaseY,'P');
 	LCD_DisplayChar(player1BaseX + 10,player1BaseY,'l');
@@ -260,6 +280,8 @@ void connect4DisplayEndScreen(){
 
 void processGameTouchInput(STMPE811_TouchData StaticTouchData){
 
+	assert((connect4Game.gameState == GAME_STATE_MODE_SEL) | (connect4Game.gameState == GAME_STATE_TURN_LOOP) | (connect4Game.gameState == GAME_STATE_END));
+
 	switch (connect4Game.gameState){
 
 		case (GAME_STATE_MODE_SEL):
@@ -270,7 +292,6 @@ void processGameTouchInput(STMPE811_TouchData StaticTouchData){
 			if (StaticTouchData.x < OnePlayerButtonXBounds[1] && StaticTouchData.x > OnePlayerButtonXBounds[0]){
 				connect4Game.playerMode = SINGLE_PLAYER_MODE;
 				connect4Game.gameState = GAME_STATE_TURN_LOOP;
-				srand(HAL_GetTick());
 			}
 			if (StaticTouchData.x < TwoPlayerButtonXBounds[1] && StaticTouchData.x > TwoPlayerButtonXBounds[0]){
 				connect4Game.playerMode = TWO_PLAYER_MODE;
@@ -333,9 +354,6 @@ void processGameTouchInput(STMPE811_TouchData StaticTouchData){
 
 			break;
 
-		default:
-			break;
-
 	}
 
 }
@@ -345,6 +363,8 @@ void processGameButtonInput(){
 	if (connect4Game.gameState != GAME_STATE_TURN_LOOP){
 		return;
 	}
+
+	assert(connect4Game.gameState == GAME_STATE_TURN_LOOP);
 
 	if (placePieceInCurrCol()){
 
@@ -393,7 +413,33 @@ bool checkForAndHandleWinner(){
 		displayFromGameState();
 		return true;
 	}
+
+	if (gameHasTie()){
+		stopGameTimer();
+		connect4Game.winner = TIE;
+		connect4Game.gameState = GAME_STATE_END;
+		connect4DisplayWinMessage();
+		HAL_Delay(5000);
+		displayFromGameState();
+		return true;
+	}
+
+
 	return false;
+
+}
+
+bool gameHasTie(){
+
+	// check rows for win
+	for (int row = 0; row < DEFAULT_ROWS; row++){
+		for (int col = 0; col < DEFAULT_COLUMNS; col++){
+			if (connect4Game.board[row][col] == EMPTY_SPACE){
+				return false;;
+			}
+		}
+	}
+	return true;
 
 }
 
@@ -432,9 +478,9 @@ void changePlayer(){
 void AIPlayerStep(){
 
 	// TODO make a real AI thing here
-	connect4Game.selectedCol = rand() % 6;
+	connect4Game.selectedCol = getRandomColumn();
 	while (!placePieceInCurrCol()){
-		connect4Game.selectedCol = rand() % 6;
+		connect4Game.selectedCol = getRandomColumn();
 	}
 
 	displayFromGameState();

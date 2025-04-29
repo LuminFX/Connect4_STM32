@@ -24,6 +24,10 @@ void ApplicationInit(void)
     Button_Init();
     gyroInit();
 
+	#if RUN_TESTS
+	runTests();
+	#endif
+
     initConnect4();
 
     #if COMPILE_TOUCH_FUNCTIONS == 1
@@ -109,4 +113,167 @@ void TIM2_IRQHandler(){
 }
 
 #endif // COMPILE_TOUCH_FUNCTIONS
+
+void runTests(){
+
+	GameInfo testGame;
+	GameInfo returnedGame;
+	LCD_SetTextColor(LCD_COLOR_BLACK);
+	LCD_SetFont(&Font16x24);
+
+
+	// TEST 1: CHECK FOR WINNER WITH NO PIECES ON BOARD
+	uint8_t board[DEFAULT_ROWS][DEFAULT_COLUMNS] = {
+	    {EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+	    {EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+	    {EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+	    {EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+	    {EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+	    {EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE}
+	};
+
+	for (int i = 0; i < DEFAULT_ROWS; i++){
+		for (int k = 0; k < DEFAULT_COLUMNS; k++){
+
+			testGame.board[i][k] = board[i][k];
+
+		}
+	}
+
+	testGame.turnNumber = 1;
+	testGame.currentPlayer = PLAYER_ONE;
+	testGame.playerOneWins = 0;
+	testGame.playerTwoWins = 0;
+	testGame.playerOneColor = LCD_COLOR_RED;
+	testGame.playerTwoColor = LCD_COLOR_YELLOW;
+	testGame.gameState = GAME_STATE_TURN_LOOP;
+	testGame.selectedCol = DEFAULT_COL_SELECTION;
+	testGame.winner = EMPTY_SPACE;
+	testGame.secondsPlayed = 0;
+	testGame.playerMode = TWO_PLAYER_MODE;
+
+	connect4InitFromGameInfo(testGame);
+	checkForAndHandleWinner();
+
+	returnedGame = getGameInfo();
+
+	assert(returnedGame.winner == EMPTY_SPACE);
+	assert(returnedGame.gameState == GAME_STATE_TURN_LOOP);
+
+	// TEST 2: CHECK FOR HORIZONTAL WINNER
+	uint8_t board1[DEFAULT_ROWS][DEFAULT_COLUMNS] = {
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE, PLAYER_ONE, PLAYER_ONE, PLAYER_ONE}
+	};
+
+	for (int i = 0; i < DEFAULT_ROWS; i++){
+		for (int k = 0; k < DEFAULT_COLUMNS; k++){
+
+			testGame.board[i][k] = board1[i][k];
+
+		}
+	}
+
+	testGame.turnNumber = 1;
+	testGame.currentPlayer = PLAYER_ONE;
+	testGame.playerOneWins = 0;
+	testGame.playerTwoWins = 0;
+	testGame.playerOneColor = LCD_COLOR_RED;
+	testGame.playerTwoColor = LCD_COLOR_YELLOW;
+	testGame.gameState = GAME_STATE_TURN_LOOP;
+	testGame.selectedCol = DEFAULT_COL_SELECTION;
+	testGame.winner = EMPTY_SPACE;
+	testGame.secondsPlayed = 0;
+	testGame.playerMode = TWO_PLAYER_MODE;
+
+	connect4InitFromGameInfo(testGame);
+	checkForAndHandleWinner();
+
+	returnedGame = getGameInfo();
+
+	assert(returnedGame.winner == PLAYER_ONE);
+	assert(returnedGame.gameState == GAME_STATE_END);
+
+	// TEST 3: CHECK FOR VERTICAL WINNER
+	uint8_t board2[DEFAULT_ROWS][DEFAULT_COLUMNS] = {
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE}
+	};
+
+	for (int i = 0; i < DEFAULT_ROWS; i++){
+		for (int k = 0; k < DEFAULT_COLUMNS; k++){
+
+			testGame.board[i][k] = board2[i][k];
+
+		}
+	}
+
+	testGame.turnNumber = 1;
+	testGame.currentPlayer = PLAYER_ONE;
+	testGame.playerOneWins = 0;
+	testGame.playerTwoWins = 0;
+	testGame.playerOneColor = LCD_COLOR_RED;
+	testGame.playerTwoColor = LCD_COLOR_YELLOW;
+	testGame.gameState = GAME_STATE_TURN_LOOP;
+	testGame.selectedCol = DEFAULT_COL_SELECTION;
+	testGame.winner = EMPTY_SPACE;
+	testGame.secondsPlayed = 0;
+	testGame.playerMode = TWO_PLAYER_MODE;
+
+	connect4InitFromGameInfo(testGame);
+	checkForAndHandleWinner();
+
+	returnedGame = getGameInfo();
+
+	assert(returnedGame.winner == PLAYER_ONE);
+	assert(returnedGame.gameState == GAME_STATE_END);
+
+	// TEST 4: CHECK FOR DIAGONAL WINNER
+	uint8_t board3[DEFAULT_ROWS][DEFAULT_COLUMNS] = {
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE, EMPTY_SPACE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE, EMPTY_SPACE},
+		{EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, PLAYER_ONE}
+	};
+
+	for (int i = 0; i < DEFAULT_ROWS; i++){
+		for (int k = 0; k < DEFAULT_COLUMNS; k++){
+
+			testGame.board[i][k] = board3[i][k];
+
+		}
+	}
+
+	testGame.turnNumber = 1;
+	testGame.currentPlayer = PLAYER_ONE;
+	testGame.playerOneWins = 0;
+	testGame.playerTwoWins = 0;
+	testGame.playerOneColor = LCD_COLOR_RED;
+	testGame.playerTwoColor = LCD_COLOR_YELLOW;
+	testGame.gameState = GAME_STATE_TURN_LOOP;
+	testGame.selectedCol = DEFAULT_COL_SELECTION;
+	testGame.winner = EMPTY_SPACE;
+	testGame.secondsPlayed = 0;
+	testGame.playerMode = TWO_PLAYER_MODE;
+
+	connect4InitFromGameInfo(testGame);
+	checkForAndHandleWinner();
+
+	returnedGame = getGameInfo();
+
+	assert(returnedGame.winner == PLAYER_ONE);
+	assert(returnedGame.gameState == GAME_STATE_END);
+
+
+}
 

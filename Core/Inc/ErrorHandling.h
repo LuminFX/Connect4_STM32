@@ -12,5 +12,6 @@
 #include "stm32f4xx_hal.h"
 
 void APPLICATION_ASSERT(bool bVal);
+void Error_Handler(void);
 
 #endif /* INC_ERRORHANDLING_H_ */

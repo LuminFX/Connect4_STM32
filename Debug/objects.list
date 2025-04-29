@@ -3,6 +3,7 @@
 "./Core/Src/ErrorHandling.o"
 "./Core/Src/Gyro.o"
 "./Core/Src/LCD_Driver.o"
+"./Core/Src/RNG_Driver.o"
 "./Core/Src/Timer_Driver.o"
 "./Core/Src/fonts.o"
 "./Core/Src/gameDriver.o"

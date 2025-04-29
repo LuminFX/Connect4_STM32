@@ -64,14 +64,3 @@ void startGameTimer(){
 void stopGameTimer(){
 	HAL_TIM_Base_Stop_IT(&htim2);
 }
-
-void Error_Handler(void)
-{
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
-  /* USER CODE END Error_Handler_Debug */
-}

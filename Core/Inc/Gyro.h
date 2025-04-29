@@ -25,6 +25,9 @@
 #define CTRL_REG5 0x24
 #define OUT_TEMP 0x26
 #define STATUS_REG 0x27
+#define Y_STAT_REG_POS 0x2
+
+#define DEG_PER_SEC_CONVERSION 0.00875f
 
 #define OUT_Y_L 0x2A
 #define OUT_Y_H 0x2B

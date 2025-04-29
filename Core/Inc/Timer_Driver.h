@@ -9,9 +9,9 @@
 #define INC_TIMER_DRIVER_H_
 
 #include "stm32f4xx_hal.h"
+#include "ErrorHandling.h"
 
 void MX_TIM2_Init(void);
-void Error_Handler(void);
 void startGameTimer();
 void stopGameTimer();
 void callTIM2IRQHandler();
