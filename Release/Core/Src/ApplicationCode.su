@@ -1,5 +1,0 @@
-../Core/Src/ApplicationCode.c:18:6:ApplicationInit	8	static
-../Core/Src/ApplicationCode.c:40:6:initConnect4	0	static
-../Core/Src/ApplicationCode.c:44:6:displayConnect4	0	static
-../Core/Src/ApplicationCode.c:49:6:LCD_Touch_Polling_Demo	8	static
-../Core/Src/ApplicationCode.c:66:6:LCD_Touch_Polling_Connect4	8	static
