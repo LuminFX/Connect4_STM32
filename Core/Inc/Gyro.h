@@ -27,7 +27,7 @@
 #define STATUS_REG 0x27
 #define Y_STAT_REG_POS 0x2
 
-#define DEG_PER_SEC_CONVERSION 0.00875f
+#define DEG_PER_SEC_CONVERSION 0.00875f // since full range setting, each unit is 8.75mdps
 
 #define OUT_Y_L 0x2A
 #define OUT_Y_H 0x2B
