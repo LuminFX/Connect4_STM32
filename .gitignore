@@ -1,0 +1,19 @@
+# stm32IDE metadata
+*.ioc
+*.log
+*.lst
+*.map
+*.dep
+*.elf
+*.bin
+*.hex
+*.o
+*.d
+*.su
+*.a
+
+/Debug/
+/Release/
+
+# OS stuff
+.DS_Store
