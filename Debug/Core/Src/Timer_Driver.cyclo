@@ -1,5 +1,0 @@
-../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
-../Core/Src/Timer_Driver.c:12:6:MX_TIM2_Init	4
-../Core/Src/Timer_Driver.c:55:6:callTIM2IRQHandler	1
-../Core/Src/Timer_Driver.c:59:6:startGameTimer	1
-../Core/Src/Timer_Driver.c:64:6:stopGameTimer	1
